@@ -30,7 +30,7 @@ The ScadaBR will be two datapoints, one for Node-RED and another one to JE03 boa
 
 
 
-### JR03 board
+### JR03 board datasource
 
 Click in Datasource icon ![Data Source Icon](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/01_DataSourceIcon.png) and click in *Add*, create a Data Source as below, replacing IP address for localhost or another one.
 
@@ -57,4 +57,22 @@ Do not forget to enable the Data source and the datapoints
 
 ![Datapoint Humidity](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/06_Datapoint_Humidity.png) 
 
+
+### Node-RED datasource
+
+Create the datasource 
+
+![Data Source NodeRED](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/07_DataSourceNodeRED.png) 
+
+An data point called distance
+
+![Data Point Distance](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/08_Datapoint_Distance.png) 
+
+And three data points for Celsius, Fahrenheit and Kelvin scales, same config but address and name.
+
+![Data Point Temperature](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/08_Datapoint_Temperature.png) 
+
+In the end we will have three datapoints
+
+![Data Points](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/09_Datapoints.png) 
 
