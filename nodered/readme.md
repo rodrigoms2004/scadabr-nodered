@@ -6,4 +6,19 @@ Import the config file to load this setup
 
 You need to install node-red-contrib-modbus, check it in Menu>Manage Palette and tab Node
 
-![Node-RED](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/nodered/02_Node-RED_modbus.png)
+![Node-RED_modbus](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/nodered/02_Node-RED_modbus.png)
+
+---
+
+## Create a Modbus server
+
+Using a Modbus Flex Server make it listen all address (0.0.0.0) in the TCP port 14502, Unit-Id 9 (In ScadaBR Unitid is the SlaveId of the Datapoints)
+
+![Modbus Flex Server](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/nodered/03_ModbusFlexServer.png)
+
+![Modbus Flex Server](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/nodered/04_ModbusFlexServerConfig.png)
+
+---
+
+## Reading temperatures from Scada
+
