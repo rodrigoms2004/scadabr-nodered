@@ -23,4 +23,12 @@ Using a Modbus Flex Server make it listen all address (0.0.0.0) in the TCP port 
 ## Reading temperatures from Scada
 
 
+Create three Modbus Read nodes with a debug and a Modbus response for each one. They will receive temperature data from Node-RED datapoints configured in ScadaBR.
+
 ![Modbus Flex Server](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/nodered/05_ReadingData.png)
+
+For read Celsius setup as below
+
+![Modbus Flex Server](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/nodered/06_ReadCelsius.png)
+
+For Kelvin and Fahrenheit just change Address to 10 and 15 respectively
