@@ -22,3 +22,5 @@ Using a Modbus Flex Server make it listen all address (0.0.0.0) in the TCP port 
 
 ## Reading temperatures from Scada
 
+
+![Modbus Flex Server](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/nodered/05_ReadingData.png)
