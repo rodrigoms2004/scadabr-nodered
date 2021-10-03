@@ -125,6 +125,15 @@ Now its only sends temperature from a datapoint to another.
 return source.value;
 ```
 
-![Point link Clesius](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/15_Pointlink_Celsius.png) 
+![Point link Celsius](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/15_Pointlink_Celsius.png) 
 
 ---
+
+### Watch list
+
+Click in Watch list icon and create a watch list name *nodered* as below:
+
+![Watch List](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/16_WatchList.png) 
+
+---
+
