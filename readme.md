@@ -70,9 +70,9 @@ An data point called distance
 
 And three data points for Celsius, Fahrenheit and Kelvin scales, same config but address and name.
 
-![Data Point Temperature](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/08_Datapoint_Temperature.png) 
+![Data Point Temperature](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/09_Datapoint_Temperature.png) 
 
-In the end we will have three datapoints
+In the end we will have four datapoints
 
-![Data Points](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/09_Datapoints.png) 
+![Data Points](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/10_Datapoints.png) 
 
