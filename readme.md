@@ -28,11 +28,33 @@ NodeJS | 14.17.6 | Javascript for backend
 
 The ScadaBR will be two datapoints, one for Node-RED and another one to JE03 board, I've created some point links that I will explain later.
 
-![Data Source Icon](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/01_DataSourceIcon.png)
 
-### JR03 board 
 
-Click in Datasource icon 
+### JR03 board
 
+Click in Datasource icon ![Data Source Icon](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/01_DataSourceIcon.png) and click in *Add*, create a Data Source as below, replacing IP address for localhost or another one.
+
+![Data Source JE03](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/02_DataSourceJE03.png) 
+
+
+Now create the datapoints for RSSI, Temperatura (Temperature) and Umidade (humidity). 
+
+![Datapoints JE03](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/03_Datapoints_JE03.png) 
+
+Do not forget to enable the Data source and the datapoints
+
+#### RSSI datapoint
+
+![Datapoint RSSI](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/04_Datapoint_RSSI.png) 
+
+
+#### Temperature datapoint
+
+![Datapoint Temperature](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/05_Datapoint_Temperature.png) 
+
+
+#### Humidity datapoint
+
+![Datapoint Humidity](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/06_Datapoint_Humidity.png) 
 
 
