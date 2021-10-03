@@ -1,0 +1,613 @@
+[
+    {
+        "id": "58b3df7012ff0d51",
+        "type": "tab",
+        "label": "Ultrasonic",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "0a6bb6acac4f3d7b",
+        "type": "modbus-flex-server",
+        "z": "58b3df7012ff0d51",
+        "name": "ModbusServerUltrasonic",
+        "logEnabled": false,
+        "serverAddress": "0.0.0.0",
+        "serverPort": "14502",
+        "responseDelay": 100,
+        "unitId": "9",
+        "delayUnit": "ms",
+        "coilsBufferSize": "20000",
+        "registersBufferSize": "20000",
+        "minAddress": 0,
+        "splitAddress": 10000,
+        "funcGetCoil": "function getFlexCoil(addr, unitID) {\n\tif (unitID === node.unitId && \n\t\taddr >= node.minAddress && \n\t\taddr <= node.splitAddress) { \n\n\t\treturn node.coils.readUInt8(addr * node.bufferFactor) \n\t}  \n}",
+        "funcGetDiscreteInput": "function getFlexDiscreteInput(addr, unitID) {\n\taddr += node.splitAddress\n\tif (unitID === node.unitId && \n\t\taddr >= node.splitAddress && \n\t\taddr <= node.splitAddress * 2) { \n\n\t\treturn node.coils.readUInt8(addr * node.bufferFactor) \n\t}  \n}",
+        "funcGetInputRegister": "function getFlexInputRegister(addr, unitID) { \n\tif (unitID === node.unitId && \n\t\taddr >= node.minAddress && \n\t\taddr <= node.splitAddress) { \n\n\t\treturn node.registers.readUInt16BE(addr * node.bufferFactor)  \n\t} \n}",
+        "funcGetHoldingRegister": "function getFlexHoldingRegsiter(addr, unitID) { \n\taddr += node.splitAddress\n\tif (unitID === node.unitId && \n\t\taddr >= node.splitAddress && \n\t\taddr <= node.splitAddress * 2) { \n\n\t\treturn node.registers.readUInt16BE(addr * node.bufferFactor)  \n\t} \n}",
+        "funcSetCoil": "function setFlexCoil(addr, value, unitID) { \n\tif (unitID === node.unitId && \n\t\taddr >= node.minAddress && \n\t\taddr <= node.splitAddress) { \n\n\t\tnode.coils.writeUInt8(value, addr * node.bufferFactor)  \n\t} \n}",
+        "funcSetRegister": "function setFlexRegister(addr, value, unitID) { \n\taddr += node.splitAddress\n\tif (unitID === node.unitId && \n\t\taddr >= node.splitAddress && \n\t\taddr <= node.splitAddress * 2) { \n\n\t\tnode.registers.writeUInt16BE(value, addr * node.bufferFactor)  \n\t} \n}",
+        "showErrors": false,
+        "x": 430,
+        "y": 60,
+        "wires": [
+            [
+                "3b39ef7f10510e0a"
+            ],
+            [],
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "673ddb4fdec8b298",
+        "type": "debug",
+        "z": "58b3df7012ff0d51",
+        "name": "msg modbus write",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 850,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "de25aeefb801f369",
+        "type": "function",
+        "z": "58b3df7012ff0d51",
+        "name": "write",
+        "func": "var msgHttp = {\n    req: msg.req,\n    res: msg.res\n};\nflow.set('msgHttp', msgHttp);\n\nvar { distance } = msg.payload;\n\nif (parseInt(distance) > 65535) {\n    distance = 65535;\n}\n\nmsg.payload = { \n    value: distance,\n    fc: 6,\n    unitid: 9,\n    address: 5,\n    quantity: 1\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 300,
+        "wires": [
+            [
+                "a15117c833076a88"
+            ]
+        ]
+    },
+    {
+        "id": "5f94d8abfde0d698",
+        "type": "modbus-response",
+        "z": "58b3df7012ff0d51",
+        "name": "",
+        "registerShowMax": 20,
+        "x": 870,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "1442d9155bf702c6",
+        "type": "inject",
+        "z": "58b3df7012ff0d51",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 60,
+        "wires": [
+            [
+                "0a6bb6acac4f3d7b"
+            ]
+        ]
+    },
+    {
+        "id": "3b39ef7f10510e0a",
+        "type": "debug",
+        "z": "58b3df7012ff0d51",
+        "name": "MSG-SERVER",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 680,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "1c3a77037cb98a4d",
+        "type": "modbus-response",
+        "z": "58b3df7012ff0d51",
+        "name": "",
+        "registerShowMax": 20,
+        "x": 390,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "89d29be2d177427e",
+        "type": "modbus-read",
+        "z": "58b3df7012ff0d51",
+        "name": "Temp Kelvin",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "9",
+        "dataType": "HoldingRegister",
+        "adr": "10",
+        "quantity": "1",
+        "rate": "1",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "d99fa599008e24e9",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 130,
+        "y": 840,
+        "wires": [
+            [
+                "b501048980a95507"
+            ],
+            [
+                "1c3a77037cb98a4d"
+            ]
+        ]
+    },
+    {
+        "id": "5c33e3ef2b498e73",
+        "type": "debug",
+        "z": "58b3df7012ff0d51",
+        "name": "",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 870,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "b8b13ebe0343e88e",
+        "type": "modbus-response",
+        "z": "58b3df7012ff0d51",
+        "name": "",
+        "registerShowMax": 20,
+        "x": 890,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "3cc51d2476cbac65",
+        "type": "modbus-read",
+        "z": "58b3df7012ff0d51",
+        "name": "Temp Fahrenheit",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "9",
+        "dataType": "HoldingRegister",
+        "adr": "15",
+        "quantity": "1",
+        "rate": "1",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "d99fa599008e24e9",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 640,
+        "y": 680,
+        "wires": [
+            [
+                "5c33e3ef2b498e73"
+            ],
+            [
+                "b8b13ebe0343e88e"
+            ]
+        ]
+    },
+    {
+        "id": "49353f21519b5ef8",
+        "type": "http in",
+        "z": "58b3df7012ff0d51",
+        "name": "[get] modbus/ultrasonic",
+        "url": "modbus/ultrasonic",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 300,
+        "wires": [
+            [
+                "de25aeefb801f369"
+            ]
+        ]
+    },
+    {
+        "id": "c6c1bba88edde564",
+        "type": "comment",
+        "z": "58b3df7012ff0d51",
+        "name": "HTTP Methods",
+        "info": "# HTTP GET\n\n\n## Write\n\nMaximum value due 2 byte unsigned int is 65535\nhttp://localhost:1880/modbus/ultrasonico?distance=1234\n\n\n## Temperature\n\n### Default (Celsius)\n\nhttp://localhost:1880/modbus/temperature\n\n### Kelvin\n\nhttp://localhost:1880/modbus/temperature/k\n\n### Fahrenheit\n\nhttp://localhost:1880/modbus/temperature/f",
+        "x": 140,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "22c8697de2bb4f2a",
+        "type": "catch",
+        "z": "58b3df7012ff0d51",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 900,
+        "y": 40,
+        "wires": [
+            [
+                "73eab16e80e90ae4"
+            ]
+        ]
+    },
+    {
+        "id": "73eab16e80e90ae4",
+        "type": "debug",
+        "z": "58b3df7012ff0d51",
+        "name": "catch all msg",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1110,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "8cee9803d3483c8f",
+        "type": "http in",
+        "z": "58b3df7012ff0d51",
+        "name": "[get] modbus/temperature/:scale",
+        "url": "/modbus/temperature/:scale",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 420,
+        "wires": [
+            [
+                "2de603be5d0cb602"
+            ]
+        ]
+    },
+    {
+        "id": "2de603be5d0cb602",
+        "type": "function",
+        "z": "58b3df7012ff0d51",
+        "name": "read",
+        "func": "var msgHttp = {\n    req: msg.req,\n    res: msg.res\n}\nflow.set('msgHttp', msgHttp);\n\n\nvar { scale } = msg.req.params;\n\nmsg.payload = { \n    value: msg.payload,\n    fc: 3, \n    unitid: 9, \n    address: 20, // datapoint Celsius\n    quantity: 1,\n    scale\n};\n\nif (scale == \"k\") {\n    msg.payload['address'] = 10; // datapoint Kelvin\n}\n\nif (scale == \"f\") {\n    msg.payload['address'] = 15; // datapoint Fahrenheit\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 480,
+        "wires": [
+            [
+                "1fbf14169502ce02"
+            ]
+        ]
+    },
+    {
+        "id": "b501048980a95507",
+        "type": "debug",
+        "z": "58b3df7012ff0d51",
+        "name": "",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 370,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "47715b930cd32458",
+        "type": "modbus-response",
+        "z": "58b3df7012ff0d51",
+        "name": "",
+        "registerShowMax": 20,
+        "x": 890,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "9ba53cfcab9e1fc2",
+        "type": "debug",
+        "z": "58b3df7012ff0d51",
+        "name": "msg modbus getter",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 890,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "c25df12d98da410a",
+        "type": "link in",
+        "z": "58b3df7012ff0d51",
+        "name": "",
+        "links": [
+            "c5e1595af2b55de4",
+            "cf15d55e1326d0f7"
+        ],
+        "x": 1115,
+        "y": 360,
+        "wires": [
+            [
+                "4e3b805a2a1d4441"
+            ]
+        ]
+    },
+    {
+        "id": "c5e1595af2b55de4",
+        "type": "link out",
+        "z": "58b3df7012ff0d51",
+        "name": "",
+        "links": [
+            "c25df12d98da410a"
+        ],
+        "x": 935,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "916ade4c81650e99",
+        "type": "http response",
+        "z": "58b3df7012ff0d51",
+        "name": "",
+        "statusCode": "200",
+        "headers": {
+            "content-type": "application/json"
+        },
+        "x": 1460,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "fe9bbe76ad1fb7c3",
+        "type": "debug",
+        "z": "58b3df7012ff0d51",
+        "name": "msg http response",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1450,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "4e3b805a2a1d4441",
+        "type": "function",
+        "z": "58b3df7012ff0d51",
+        "name": "HTTP Payload",
+        "func": "var { req, res } = flow.get('msgHttp') || {};\n\nvar newMsg = {\n    payload: msg.payload,\n    req, \n    res\n}\n\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 360,
+        "wires": [
+            [
+                "916ade4c81650e99",
+                "fe9bbe76ad1fb7c3"
+            ]
+        ]
+    },
+    {
+        "id": "cf15d55e1326d0f7",
+        "type": "link out",
+        "z": "58b3df7012ff0d51",
+        "name": "",
+        "links": [
+            "c25df12d98da410a"
+        ],
+        "x": 935,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "1fbf14169502ce02",
+        "type": "modbus-flex-getter",
+        "z": "58b3df7012ff0d51",
+        "name": "",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "logIOActivities": false,
+        "server": "d99fa599008e24e9",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "x": 630,
+        "y": 480,
+        "wires": [
+            [
+                "9ba53cfcab9e1fc2",
+                "c5e1595af2b55de4"
+            ],
+            [
+                "47715b930cd32458"
+            ]
+        ]
+    },
+    {
+        "id": "ccf39f56cedc71b9",
+        "type": "http in",
+        "z": "58b3df7012ff0d51",
+        "name": "[get] modbus/temperature default Celsius",
+        "url": "/modbus/temperature",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 520,
+        "wires": [
+            [
+                "2de603be5d0cb602"
+            ]
+        ]
+    },
+    {
+        "id": "a15117c833076a88",
+        "type": "modbus-flex-write",
+        "z": "58b3df7012ff0d51",
+        "name": "",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "server": "d99fa599008e24e9",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "x": 630,
+        "y": 300,
+        "wires": [
+            [
+                "673ddb4fdec8b298",
+                "cf15d55e1326d0f7"
+            ],
+            [
+                "5f94d8abfde0d698"
+            ]
+        ]
+    },
+    {
+        "id": "7d0d1077cb4a8d09",
+        "type": "modbus-read",
+        "z": "58b3df7012ff0d51",
+        "name": "Temp Celsius",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "9",
+        "dataType": "HoldingRegister",
+        "adr": "20",
+        "quantity": "1",
+        "rate": "1",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "d99fa599008e24e9",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 130,
+        "y": 680,
+        "wires": [
+            [
+                "8d91ad9503ac72cf"
+            ],
+            [
+                "039cbf0d66a8d4d3"
+            ]
+        ]
+    },
+    {
+        "id": "8d91ad9503ac72cf",
+        "type": "debug",
+        "z": "58b3df7012ff0d51",
+        "name": "",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 370,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "039cbf0d66a8d4d3",
+        "type": "modbus-response",
+        "z": "58b3df7012ff0d51",
+        "name": "",
+        "registerShowMax": 20,
+        "x": 390,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "d99fa599008e24e9",
+        "type": "modbus-client",
+        "name": "ModbusServerUltrasonic",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "tcpHost": "0.0.0.0",
+        "tcpPort": "14502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "unit_id": "9",
+        "commandDelay": "1",
+        "clientTimeout": "1000",
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": "2000",
+        "parallelUnitIdsAllowed": true
+    }
+]
