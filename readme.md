@@ -7,6 +7,9 @@ In this tutorial I will explain how to integrate Node-RED via Modbus in a SCADA 
 
 For this test I am using the SCADA in a PC and Node-Red installed in a Raspberry Pi. I am using also a Modbus/MQTT board to get data of temperature and so on. You can replace it for creating a virtual dataset and virtual datapoints in ScadaBR.
 
+### Config files
+
+Both ScadaBR and Node-RED JSON config files could be get [here](https://github.com/rodrigoms2004/scadabr-nodered/tree/main/config).
 
 ### Versions
 item | version | description
