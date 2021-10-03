@@ -23,11 +23,11 @@ NodeJS | 14.17.6 | Javascript for backend
 * [node-red-contrib-modbus](https://flows.nodered.org/node/node-red-contrib-modbus)
 * [JE03 - portuguese](https://www.bintechnology.com.br/connectioje03)
 
+---
 
 ## Configuring ScadaBR
 
 The ScadaBR will be two datapoints, one for Node-RED and another one to JE03 board, I've created some point links that I will explain later.
-
 
 
 ### JR03 board datasource
@@ -57,6 +57,7 @@ Do not forget to enable the Data source and the datapoints
 
 ![Datapoint Humidity](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/06_Datapoint_Humidity.png) 
 
+---
 
 ### Node-RED datasource
 
@@ -76,3 +77,54 @@ In the end we will have four datapoints
 
 ![Data Points](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/10_Datapoints.png) 
 
+---
+
+### Point links
+
+Click in the icon of point links ![Point Links icon](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/11_Pointlink_icon.png) and create three point links associating JE03 temperature to the Node-RED datapoints. 
+
+![Data links](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/12_Datalinks.png) 
+
+#### Data link Kelvin
+
+Converts temperature from celsius to Kelvin, where source point is the JE03 temperature datapoint returning the value to the Node-RED Kelvin temperature datapoint.
+
+```
+var temC;
+var tempK;
+
+tempC = source.value;
+tempK = tempC + 273.15
+
+return tempK
+```
+
+![Data links](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/13_Datalink_Kelvin.png) 
+
+#### Data link Fahrenheit
+
+Converts temperature from celsius to Fahrenheit, where source point is the JE03 temperature datapoint returning the value to the Node-RED Fahrenheit temperature datapoint.
+
+```
+var temC;
+var tempF;
+
+tempC = source.value;
+tempF = (tempC * 9/5) + 32;
+
+return tempF
+```
+
+![Data links](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/14_Datalink_Fahrenheit.png) 
+
+#### Data link Celsius
+
+Now its only sends temperature from a datapoint to another.
+
+```
+return source.value;
+```
+
+![Data links](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/15_Datalink_Celsius.png) 
+
+---
