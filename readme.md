@@ -28,7 +28,7 @@ NodeJS | 14.17.6 | Javascript for backend
 
 The ScadaBR will be two datapoints, one for Node-RED and another one to JE03 board, I've created some point links that I will explain later.
 
-![Data Source Icon](https://github.com/rodrigoms2004/scadabr-nodered/img/scadabr/01_DataSourceIcon.png)
+![Data Source Icon](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/img/scadabr/01_DataSourceIcon.png)
 
 ### JR03 board 
 
