@@ -39,3 +39,5 @@ The ScadaBR will be two datapoints, one for Node-RED and another one to JE03 boa
 ## Configuring Node-RED
 
 Setup for Node-RED
+
+[Node-RED](https://github.com/rodrigoms2004/scadabr-nodered/blob/main/nodered/readme.md)
